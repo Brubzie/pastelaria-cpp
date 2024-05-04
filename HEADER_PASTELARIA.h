@@ -11,7 +11,7 @@ using namespace std;
 
 // Funções
 void limpar() {
-    #ifdef _WIN32 // <= Identifica se o SO utilizado � Windows
+    #ifdef _WIN32 // <= Identifica se o SO utilizado é Windows
         system("cls");
     #else // Caso não seja, ele executará o seguinte comando
         system("clear");
@@ -19,11 +19,12 @@ void limpar() {
 }
 
 void pausar() {
-    #ifdef _WIN32 // <= Identifica se o SO utilizado � Windows
+    #ifdef _WIN32 // <= Identifica se o SO utilizado é Windows
         system("pause");
-    #else // Caso n�o seja, ele executar� o seguinte comando
+    #else // Caso não seja, ele executará o seguinte comando
         cout << "Pressione ENTER para continuar...\n";
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
     #endif
 }
 
@@ -65,7 +66,7 @@ void inicializar(ListaPedidos* lista) {
     lista->ultimo = nullptr;
     lista->tamanho = 0;
 
-    // Ingredientes dos Pastéis
+    // Ingredientes dos PastÃ©is
     lista->ingredientesDisponiveis.queijo = 50000; // 50kg
     lista->ingredientesDisponiveis.presunto = 20000; // 20kg
     lista->ingredientesDisponiveis.frango = 10000; // 10kg
@@ -83,7 +84,7 @@ void destruir(ListaPedidos* lista) {
 }
 
 bool verificarIngredientes(ListaPedidos* lista, int queijo, int presunto, int frango) {
-    // Verifica se há ingredientes o suficiente
+    // Verifica se hÃ¡ ingredientes o suficiente
     return (lista->ingredientesDisponiveis.queijo >= queijo &&
             lista->ingredientesDisponiveis.presunto >= presunto &&
             lista->ingredientesDisponiveis.frango >= frango);
@@ -123,9 +124,9 @@ void editarPedido(ListaPedidos* lista, int senha) {
     }
 
     if (atual == nullptr) {
-        cout << endl << "[ERRO] Pedido não encontrado!" << endl;
+        cout << endl << "[ERRO] Pedido nÃ£o encontrado!" << endl;
         pausar();
-        return; // Retorna se 'atual' é nulo
+        return; // Retorna se 'atual' Ã© nulo
     }
 
     lista->ingredientesDisponiveis.massa += (atual->pedido.pasteisDePizza + atual->pedido.pasteisDeQueijo + atual->pedido.pasteisDeFrango + atual->pedido.pasteisDeVento) * 30;
@@ -133,22 +134,22 @@ void editarPedido(ListaPedidos* lista, int senha) {
 
     cin.ignore(numeric_limits<streamsize>::max(),'\n');
 
-    cout << "==== Edição do Pedido ====" << endl;
+    cout << "==== EdiÃ§Ã£o do Pedido ====" << endl;
     cout << "Informe o novo nome do cliente: ";
     getline(cin, atual->pedido.nomeDoCliente);
 
     int quantidadePizza, quantidadeQueijo, quantidadeFrango, quantidadeVento;
 
-    cout << "Pastéis de pizza comprados: ";
+    cout << "PastÃ©is de pizza comprados: ";
     cin >> quantidadePizza;
     
-    cout << "Pastéis de queijo comprados: ";
+    cout << "PastÃ©is de queijo comprados: ";
     cin >> quantidadeQueijo;
     
-    cout << "Pastéis de frango comprados: ";
+    cout << "PastÃ©is de frango comprados: ";
     cin >> quantidadeFrango;
     
-    cout << "Pastéis de vento comprados: ";
+    cout << "PastÃ©is de vento comprados: ";
     cin >> quantidadeVento;
 
     // Calcular a quantidade total de cada ingrediente
@@ -181,8 +182,8 @@ void removerPedido(ListaPedidos* lista, int senha) {
     }
 
     if (atual == nullptr) {
-        cout << "[ERRO] Pedido não encontrado!" << endl;
-        return; // Retorna se 'atual' é nulo
+        cout << "[ERRO] Pedido nÃ£o encontrado!" << endl;
+        return; // Retorna se 'atual' Ã© nulo
     }
 
     // Adicionar os ingredientes utilizados de volta
@@ -218,27 +219,27 @@ void mostrarPedidos(ListaPedidos* lista) {
     try {
         arquivo.open("pedidos.txt");
         if(!arquivo) {
-            throw runtime_error("Não foi possível abrir o arquivo.");
+            throw runtime_error("NÃ£o foi possÃ­vel abrir o arquivo.");
         }
-        // Informações do arquivo
+        // InformaÃ§Ãµes do arquivo
         arquivo << "==== Pedidos ====" << endl;
 
         if (atual != nullptr) {
             while (atual != nullptr) {
                 arquivo << "Senha do Pedido: " << atual->pedido.senhaDoPedido << endl;
                 arquivo << "Cliente: " << atual->pedido.nomeDoCliente << endl;
-                arquivo << "Quantidade de Pastéis de Pizza: " << atual->pedido.pasteisDePizza << endl;
-                arquivo << "Quantidade de Pastéis de Queijo: " << atual->pedido.pasteisDeQueijo << endl;
-                arquivo << "Quantidade de Pastéis de Frango: " << atual->pedido.pasteisDeFrango << endl;
-                arquivo << "Quantidade de Pastéis de Vento: " << atual->pedido.pasteisDeVento << endl;
+                arquivo << "Quantidade de PastÃ©is de Pizza: " << atual->pedido.pasteisDePizza << endl;
+                arquivo << "Quantidade de PastÃ©is de Queijo: " << atual->pedido.pasteisDeQueijo << endl;
+                arquivo << "Quantidade de PastÃ©is de Frango: " << atual->pedido.pasteisDeFrango << endl;
+                arquivo << "Quantidade de PastÃ©is de Vento: " << atual->pedido.pasteisDeVento << endl;
                 arquivo << "Quantidade de Coca-Cola: " << atual->pedido.refriCoca << endl;
                 arquivo << "Quantidade de Pepsi: " << atual->pedido.refriPepsi << endl << endl;
 
                 atual = atual->proximo;  
             }
         } else {
-            arquivo << "[ERRO] A lista de pedidos está vazia!" << endl;
-            arquivo << "Selecione a opção 1 no menu, para cadastrar seu pedido." << endl;
+            arquivo << "[ERRO] A lista de pedidos estÃ¡ vazia!" << endl;
+            arquivo << "Selecione a opÃ§Ã£o 1 no menu, para cadastrar seu pedido." << endl;
         }
 
         arquivo.close();
@@ -246,7 +247,7 @@ void mostrarPedidos(ListaPedidos* lista) {
         cerr << "ERRO: " << e.what() << endl;
     }
 
-    // Redefinir 'atual' para o início da lista
+    // Redefinir 'atual' para o inÃ­cio da lista
     atual = lista->primeiro;
 
     cout << "==== Pedidos ====" << endl;
@@ -254,21 +255,21 @@ void mostrarPedidos(ListaPedidos* lista) {
     if (atual != nullptr) {
         while (atual != nullptr) {
             cout << "Cliente: " << atual->pedido.nomeDoCliente << endl;
-            cout << "Quantidade de Pastéis de Pizza: " << atual->pedido.pasteisDePizza << endl;
-            cout << "Quantidade de Pastéis de Queijo: " << atual->pedido.pasteisDeQueijo << endl;
-            cout << "Quantidade de Pastéis de Frango: " << atual->pedido.pasteisDeFrango << endl;
-            cout << "Quantidade de Pastéis de Vento: " << atual->pedido.pasteisDeVento << endl;
+            cout << "Quantidade de PastÃ©is de Pizza: " << atual->pedido.pasteisDePizza << endl;
+            cout << "Quantidade de PastÃ©is de Queijo: " << atual->pedido.pasteisDeQueijo << endl;
+            cout << "Quantidade de PastÃ©is de Frango: " << atual->pedido.pasteisDeFrango << endl;
+            cout << "Quantidade de PastÃ©is de Vento: " << atual->pedido.pasteisDeVento << endl;
             cout << "Quantidade de Coca-Cola: " << atual->pedido.refriCoca << endl;
             cout << "Quantidade de Pepsi: " << atual->pedido.refriPepsi << endl << endl;
 
             atual = atual->proximo;  
         }
     } else {
-        cout << "[ERRO] A lista de pedidos está vazia!" << endl;
-        cout << "Selecione a opção 1 no menu, para cadastrar seu pedido." << endl;
+        cout << "[ERRO] A lista de pedidos estÃ¡ vazia!" << endl;
+        cout << "Selecione a opÃ§Ã£o 1 no menu, para cadastrar seu pedido." << endl;
     }
 
-    if (atual != nullptr) cout << "Relatório de pedidos criado com sucesso!" << endl;
+    if (atual != nullptr) cout << "RelatÃ³rio de pedidos criado com sucesso!" << endl;
 
     pausar();
 }
